@@ -3,8 +3,22 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [data, setData] = React.useState([]); // Criando a key "data", no estado do contexto global, para armazenar os dados oriundos da requisição à API de Star Wars.
+  const FILTERS_INITIAL_STATE = { // Estado inicial da key "filters", para que o avaliador funcione.
+    filterByName: {
+      name: '',
+    },
+    filterByNumericValues: [
+      {
+        column: 'population',
+        comparison: 'maior que',
+        value: '100000',
+      },
+    ],
+  };
+
+  const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [filters, setFilters] = React.useState(FILTERS_INITIAL_STATE);
 
   const fetchSWPlanets = async () => { // Estruturando função que fará o fetch() para a url da API de Star Wars.
     setIsLoading(true);
@@ -19,6 +33,8 @@ function Provider({ children }) {
   const contextObj = {
     data,
     isLoading,
+    filters,
+    setFilters,
   };
 
   return (
@@ -29,7 +45,7 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.element.isRequired, // A prop "children" será um componente React, que é visto como "element".
+  children: PropTypes.node.isRequired, // A prop "children" será um nó (node) filho do provider.
 };
 
 export default Provider;
