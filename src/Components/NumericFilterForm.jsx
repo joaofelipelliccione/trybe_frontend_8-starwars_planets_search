@@ -2,16 +2,14 @@ import React from 'react';
 import Context from '../Context/Context';
 
 function NumericFilterForm() {
-  const [column, setColumn] = React.useState('population');
+  const { dropdownContent1, filters, setFilters } = React.useContext(Context);
+
+  const [column, setColumn] = React.useState(dropdownContent1[0]);
   const [comparison, setComparison] = React.useState('maior que');
   const [value, setValue] = React.useState('100000');
   const numericFilterObj = { column, comparison, value }; // União dos 3 estados locais em um único objeto, para enviá-lo para o contexto global quando o botão for clicado.
 
-  const dropdownContent1 = ['population', 'orbital_period', 'diameter',
-    'rotation_period', 'surface_water'];
   const dropdownContent2 = ['maior que', 'menor que', 'igual a'];
-
-  const { filters, setFilters } = React.useContext(Context);
 
   const onFilterBtnClick = () => { // Função que adiciona o numericFilterObj dentro do array filterByNumericValues, presente no contexto global.
     setFilters({

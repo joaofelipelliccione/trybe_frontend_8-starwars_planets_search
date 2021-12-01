@@ -14,6 +14,8 @@ function Provider({ children }) {
   const [dataToRender, setDataToRender] = React.useState([]); // Quando os filtros forem aplicados, é essa 'key' que será alterada e não a key 'data'.
   const [isLoading, setIsLoading] = React.useState(false);
   const [filters, setFilters] = React.useState(FILTERS_INITIAL_STATE);
+  const [dropdownContent1, setDropdownContent1] = React.useState(['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water']); // Dados utilizados no <select/> do componente <NumericFilterForm />.
 
   // REQUISIÇÃO API:
   const fetchSWPlanets = async () => { // Estruturando função que fará o fetch() para a url da API de Star Wars.
@@ -28,15 +30,15 @@ function Provider({ children }) {
   React.useEffect(() => { fetchSWPlanets(); }, []); // 2° parâmetro = [] --> useEffect() utilizada como componentDidMount().
 
   // PESQUISA POR NOME DE UM PLANETA EM <SearchBoxFilter />:
-  const onFilterByNameChange = () => {
+  const onFilterByNameUpdate = () => {
     const { filterByName: { name } } = filters;
-    setDataToRender(data.filter((planet) => planet.name.includes(name))); // A key 'dataToRender', do estado, será filtrada. Sobre tal perspectiva, apresentará menos planetas.
+    setDataToRender(data.filter((planet) => planet.name.includes(name)));
   };
 
-  React.useEffect(onFilterByNameChange, [filters.filterByName.name]); // 2° parâmetro = [variável] --> useEffect() utilizada como componentDidUpdate(). Sempre quando a key 'filters.filterByName.name' do Estado for alterada (isso é, quando o usuário pesquisa o nome de um planeta), esse useEffect() será chamado.
+  React.useEffect(onFilterByNameUpdate, [filters.filterByName.name]); // 2° parâmetro = [variável] --> useEffect() utilizada como componentDidUpdate(). Sempre quando a key 'filters.filterByName.name' do Estado for alterada (isso é, quando o usuário pesquisa o nome de um planeta), esse useEffect() será chamado.
 
   // UTILIZAÇÃO DOS FILTROS PRESENTES EM <NumericFilterForm />:
-  const onNumericFilterChange = () => {
+  const onNumericFilterUpdate = () => {
     const { filterByNumericValues } = filters;
     const i = filterByNumericValues.length - 1; // Captando o índice do objeto [filtro] que foi adicionado mais recentemente no array filterByNumericValues, oriundo do context.
 
@@ -61,15 +63,21 @@ function Provider({ children }) {
         === Number(filterByNumericValues[i].value)),
       );
     }
+
+    if (filterByNumericValues.length > 0) { // REQ 4: Retirando a opção do dropdownContent1, quando essa já estiver sido escolhida em algum filtro.
+      setDropdownContent1(dropdownContent1.filter((option) => option
+        !== filterByNumericValues[i].column));
+    }
   };
 
-  React.useEffect(onNumericFilterChange, [filters.filterByNumericValues]); // 2° parâmetro = [variável] --> useEffect() utilizada como componentDidUpdate(). Sempre quando a key 'filters.filterByNumericValues' do Estado for alterada (isso é, quando o usuário utilizar os filtros numéricos), esse useEffect() será chamado.
+  React.useEffect(onNumericFilterUpdate, [filters.filterByNumericValues]); // 2° parâmetro = [variável] --> useEffect() utilizada como componentDidUpdate(). Sempre quando a key 'filters.filterByNumericValues' do Estado for alterada (isso é, quando o usuário utilizar os filtros numéricos), esse useEffect() será chamado.
 
   const contextObj = {
     data,
     dataToRender,
     setDataToRender,
     isLoading,
+    dropdownContent1,
     filters,
     setFilters,
   };
