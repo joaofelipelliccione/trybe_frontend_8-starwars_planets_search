@@ -78,6 +78,7 @@ function Provider({ children }) {
     setDataToRender,
     isLoading,
     dropdownContent1,
+    setDropdownContent1,
     filters,
     setFilters,
   };

@@ -2,7 +2,8 @@ import React from 'react';
 import Context from '../Context/Context';
 
 function NumericFilterForm() {
-  const { dropdownContent1, filters, setFilters } = React.useContext(Context);
+  const { data, setDataToRender, dropdownContent1,
+    setDropdownContent1, filters, setFilters } = React.useContext(Context);
 
   const [column, setColumn] = React.useState(dropdownContent1[0]);
   const [comparison, setComparison] = React.useState('maior que');
@@ -18,41 +19,97 @@ function NumericFilterForm() {
     });
   };
 
+  const onDeleteFilterBtnClick = ({ target }) => { // Função responsável pelas ações que ocorrem quando um determinado filtro é excluído.
+    const { filterByNumericValues } = filters;
+
+    setFilters({ // Retirando o filtro clicado, do array de filtros.
+      ...filters,
+      filterByNumericValues: filterByNumericValues
+        .filter((obj1) => obj1.column !== target.id),
+    });
+
+    setDropdownContent1([ // Voltando com a opção (population, diameter...) para dentro do array "dropdownContent1", utilizado pelo 1° <select/> do <form/> abaixo.
+      target.id,
+      ...dropdownContent1,
+    ]);
+
+    if (filterByNumericValues.length === 1) { // Lógica para quando há apenas 1 filtro a ser excluído.
+      setDataToRender(data);
+    }
+
+    if (filterByNumericValues.length > 1) { // Lógica para quando há mais de 1 filtro a ser excluído.
+      let resultData = [...data];
+      const nonDeletedFilters = filterByNumericValues
+        .filter((obj2) => obj2.column !== target.id);
+
+      nonDeletedFilters.forEach((obj3) => {
+        if (obj3.comparison === 'maior que') {
+          resultData = resultData.filter((planet) => planet[obj3.column]
+            > Number(obj3.value));
+        }
+        if (obj3.comparison === 'menor que') {
+          resultData = resultData.filter((planet) => planet[obj3.column]
+            < Number(obj3.value));
+        }
+        if (obj3.comparison === 'igual a') {
+          resultData = resultData.filter((planet) => Number(planet[obj3.column])
+            === Number(obj3.value));
+        }
+      });
+      setDataToRender(resultData);
+    }
+  };
+
   return (
-    <form>
-      <select
-        data-testid="column-filter"
-        value={ column }
-        onChange={ ({ target }) => setColumn(target.value) }
-      >
-        {dropdownContent1.map((option, index1) => (
-          <option key={ index1 }>{option}</option>
-        ))}
-      </select>
-      <select
-        data-testid="comparison-filter"
-        value={ comparison }
-        onChange={ ({ target }) => setComparison(target.value) }
-      >
-        {dropdownContent2.map((option, index2) => (
-          <option key={ index2 }>{option}</option>
-        ))}
-      </select>
-      <input
-        data-testid="value-filter"
-        type="number"
-        min="0"
-        value={ value }
-        onChange={ ({ target }) => setValue(target.value) }
-      />
-      <button
-        data-testid="button-filter"
-        type="button"
-        onClick={ onFilterBtnClick }
-      >
-        Filtrar
-      </button>
-    </form>
+    <section>
+      <form>
+        <select
+          data-testid="column-filter"
+          value={ column }
+          onChange={ ({ target }) => setColumn(target.value) }
+        >
+          {dropdownContent1.map((option, index1) => (
+            <option key={ index1 }>{option}</option>
+          ))}
+        </select>
+        <select
+          data-testid="comparison-filter"
+          value={ comparison }
+          onChange={ ({ target }) => setComparison(target.value) }
+        >
+          {dropdownContent2.map((option, index2) => (
+            <option key={ index2 }>{option}</option>
+          ))}
+        </select>
+        <input
+          data-testid="value-filter"
+          type="number"
+          min="0"
+          value={ value }
+          onChange={ ({ target }) => setValue(target.value) }
+        />
+        <button
+          data-testid="button-filter"
+          type="button"
+          onClick={ onFilterBtnClick }
+        >
+          Filtrar
+        </button>
+      </form>
+
+      {filters.filterByNumericValues && filters.filterByNumericValues
+        .map((obj) => (
+          <div data-testid="filter" key={ obj.column }>
+            {`${obj.column} ${obj.comparison} ${obj.value}`}
+            <button
+              id={ obj.column }
+              type="button"
+              onClick={ onDeleteFilterBtnClick }
+            >
+              X
+            </button>
+          </div>))}
+    </section>
   );
 }
 
