@@ -9,10 +9,26 @@ function Table() {
     'Films', 'Created', 'Edited', 'URL'];
 
   const dataToUse = () => { // Tal função sempre retornará um array de objetos, que acumula informações de cada um dos planetas. Por outro lado, dependendo dos filtros aplicados pelo usuário, o respectivo array apresentará uma quantidade reduzida de objetos.
-    const { filterByName: { name } } = filters;
+    const { filterByName: { name }, filterByNumericValues } = filters;
+    const i = filterByNumericValues.length - 1; // Captando o índice do objeto que foi adicionado mais recentemente no array filterByNumericValues, oriundo do context.
 
     if (name !== '') {
       return (data.filter((planet) => planet.name.includes(name)));
+    }
+    if (filterByNumericValues.length > 0
+      && filterByNumericValues[i].comparison === 'maior que') {
+      return (data.filter((planet) => planet[filterByNumericValues[i].column]
+        > Number(filterByNumericValues[i].value)));
+    }
+    if (filterByNumericValues.length > 0
+      && filterByNumericValues[i].comparison === 'menor que') {
+      return (data.filter((planet) => planet[filterByNumericValues[i].column]
+        < Number(filterByNumericValues[i].value)));
+    }
+    if (filterByNumericValues.length > 0
+      && filterByNumericValues[i].comparison === 'igual a') {
+      return (data.filter((planet) => Number(planet[filterByNumericValues[i].column])
+        === Number(filterByNumericValues[i].value)));
     }
     return (data);
   };
