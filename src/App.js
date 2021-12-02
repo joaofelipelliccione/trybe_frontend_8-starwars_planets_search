@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
 import Provider from './Context/Provider';
 import Header from './Components/Header';
 import Table from './Components/Table';
 import NumericFilterForm from './Components/NumericFilterForm';
 import Footer from './Components/Footer';
+import './App.css';
 
 function App() {
   return (
@@ -18,3 +18,4 @@ function App() {
 }
 
 export default App;
+
