@@ -1,16 +1,18 @@
 import React from 'react';
 import './App.css';
 import Provider from './Context/Provider';
+import Header from './Components/Header';
 import Table from './Components/Table';
-import SearchBoxFilter from './Components/SearchBoxFilter';
 import NumericFilterForm from './Components/NumericFilterForm';
+import Footer from './Components/Footer';
 
 function App() {
   return (
     <Provider>
-      <SearchBoxFilter />
+      <Header />
       <NumericFilterForm />
       <Table />
+      <Footer />
     </Provider>
   );
 }

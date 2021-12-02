@@ -17,6 +17,7 @@ function NumericFilterForm() {
       ...filters,
       filterByNumericValues: [...filters.filterByNumericValues, numericFilterObj],
     });
+    setColumn('Selecione');
   };
 
   const onDeleteFilterBtnClick = ({ target }) => { // Função responsável pelas ações que ocorrem quando um determinado filtro é excluído.
@@ -92,6 +93,7 @@ function NumericFilterForm() {
           data-testid="button-filter"
           type="button"
           onClick={ onFilterBtnClick }
+          disabled={ column === 'Selecione' }
         >
           Filtrar
         </button>

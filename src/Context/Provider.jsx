@@ -14,8 +14,9 @@ function Provider({ children }) {
   const [dataToRender, setDataToRender] = React.useState([]); // Quando os filtros forem aplicados, é essa 'key' que será alterada e não a key 'data'.
   const [isLoading, setIsLoading] = React.useState(false);
   const [filters, setFilters] = React.useState(FILTERS_INITIAL_STATE);
-  const [dropdownContent1, setDropdownContent1] = React.useState(['population',
-    'orbital_period', 'diameter', 'rotation_period', 'surface_water']); // Dados utilizados no <select/> do componente <NumericFilterForm />.
+  const [dropdownContent1, setDropdownContent1] = React.useState(['Selecione',
+    'population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water']); // Dados utilizados no <select/> do componente <NumericFilterForm />.
 
   // REQUISIÇÃO API:
   const fetchSWPlanets = async () => { // Estruturando função que fará o fetch() para a url da API de Star Wars.
@@ -32,7 +33,17 @@ function Provider({ children }) {
   // PESQUISA POR NOME DE UM PLANETA EM <SearchBoxFilter />:
   const onFilterByNameUpdate = () => {
     const { filterByName: { name } } = filters;
-    setDataToRender(data.filter((planet) => planet.name.includes(name)));
+    setDataToRender(data.filter((planet) => planet.name.toLowerCase()
+      .includes(name.toLowerCase())));
+
+    setFilters({ // Quando um nome for pesquisado, os filtros numéricos serão limpos. A lógica é OU pesquisar por nome OU pesquisar por número.
+      ...filters,
+      filterByNumericValues: [],
+    });
+
+    setDropdownContent1([ // Tendo em vista que os filtros numéricos serão limpos, o array "dropdownContent1" deve ser "reiniciado".
+      'Selecione', 'population', 'orbital_period', 'diameter',
+      'rotation_period', 'surface_water']);
   };
 
   React.useEffect(onFilterByNameUpdate, [filters.filterByName.name]); // 2° parâmetro = [variável] --> useEffect() utilizada como componentDidUpdate(). Sempre quando a key 'filters.filterByName.name' do Estado for alterada (isso é, quando o usuário pesquisa o nome de um planeta), esse useEffect() será chamado.
