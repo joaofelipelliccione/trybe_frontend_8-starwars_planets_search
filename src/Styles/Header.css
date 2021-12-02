@@ -1,0 +1,33 @@
+#pageHeader {
+  border-bottom: dashed 2px #D5A40C;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1%;
+  padding: 1.5%;
+}
+
+#headerCentralContainer {
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+}
+
+#headerCentralContainer img {
+  width: 250px;
+}
+
+#headerCentralContainer input[type = "text"] {
+  background-color: #fce08d;
+  border-radius: 4px;
+  align-self: center;
+  font-size: 1.15em;
+  width: 33%;
+  padding: 1%;
+  transition: 0.3s width ease-in-out;
+}
+
+#headerCentralContainer input[type = "text"]:focus {
+  background-color: #D4F1F4;
+  outline: none;
+  width: 40%;
+}

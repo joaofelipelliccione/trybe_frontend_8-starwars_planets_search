@@ -6,9 +6,8 @@ function SearchBoxFilter() {
 
   return (
     <input
-      data-testid="name-filter"
       type="text"
-      placeholder="Filtre por nome"
+      placeholder="Nome de planeta..."
       value={ filters.filterByName.name }
       onChange={ ({ target }) => setFilters({
         ...filters,
