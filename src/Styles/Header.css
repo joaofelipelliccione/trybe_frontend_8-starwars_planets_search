@@ -1,5 +1,4 @@
 #pageHeader {
-  border-bottom: dashed 2px #D5A40C;
   display: flex;
   justify-content: center;
   margin-bottom: 1%;
@@ -16,18 +15,18 @@
   width: 250px;
 }
 
-#headerCentralContainer input[type = "text"] {
+#headerCentralContainer input[ type = 'text' ] {
+  align-self: center;
   background-color: #fce08d;
   border-radius: 4px;
-  align-self: center;
   font-size: 1.15em;
-  width: 33%;
   padding: 1%;
   transition: 0.3s width ease-in-out;
+  width: 33%;
 }
 
-#headerCentralContainer input[type = "text"]:focus {
-  background-color: #D4F1F4;
+#headerCentralContainer input[ type = 'text' ]:focus {
+  background-color: #d4f1f4;
   outline: none;
   width: 40%;
 }

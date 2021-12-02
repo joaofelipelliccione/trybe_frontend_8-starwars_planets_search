@@ -1,95 +1,95 @@
 #numericFilterContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-bottom: 0.5%;
 }
 
 #numericFilterForm {
   display: flex;
-  width: 60%;
   justify-content: space-evenly;
   margin-bottom: 0.3%;
+  width: 60%;
 }
 
 #numericFilterForm select {
   background-color: #fce08d;
   border-radius: 4px;
-  font-size: 1.15em;
   cursor: pointer;
-  width: 20%;
+  font-size: 1.15em;
   padding: 1%;
+  width: 20%;
 }
 
-#numericFilterForm select:focus  {
-  background-color: #D4F1F4;
+#numericFilterForm select:focus {
+  background-color: #d4f1f4;
   outline: none;
 }
 
-#numericFilterForm input[type = "number"] {
+#numericFilterForm input[ type = 'number' ] {
+  align-self: center;
   background-color: #fce08d;
   border-radius: 4px;
-  align-self: center;
   font-size: 1.15em;
-  width: 20%;
   padding: 1%;
   transition: 0.3s ease-in-out;
+  width: 20%;
 }
 
-#numericFilterForm input[type = "number"]:focus {
-  background-color: #D4F1F4;
+#numericFilterForm input[ type = 'number' ]:focus {
+  background-color: #d4f1f4;
   outline: none;
 }
 
 #filterBtn {
-  background-color: #D4F1F4;
+  background-color: #d4f1f4;
   border: none;
   border-radius: 5px;
-  width: 15%;
   cursor: pointer;
   font-size: 1.15em;
   transition: 0.3s width ease-in-out;
+  width: 15%;
 }
 
 #filterBtn:hover {
-  background-color: #D4F1F4;
+  background-color: #d4f1f4;
   width: 18%;
 }
 
 #filterBtn:disabled {
   background-color: rgba(170, 170, 170, 0.466);
-  color: ghostwhite;
   border: none;
   border-radius: 5px;
-  width: 15%;
+  color: ghostwhite;
   font-size: 1.15em;
   transition: 0.3s width ease-in-out;
+  width: 15%;
 }
 
 #filterBtn:disabled:hover {
   background-color: rgba(170, 170, 170, 0.466);
+  box-shadow: none;
   color: ghostwhite;
   cursor: default;
-  box-shadow: none;
   width: 15%;
 }
 
 #eachChosenFilter {
-  background-color: #D4F1F4;
-  color: black;
+  background-color: #d4f1f4;
   border-radius: 5px;
+  color: black;
   display: flex;
-  text-align: center;
   font-size: 1.15em;
   font-style: italic;
   margin-top: 0.8%;
   padding: 6px;
+  text-align: center;
 }
 
 #eachChosenFilter button {
-  background-color: #D4F1F4;
-  color: red;
+  background-color: #d4f1f4;
   border: none;
+  color: red;
   cursor: pointer;
   font-size: 0.9em;
   margin-left: 5px;

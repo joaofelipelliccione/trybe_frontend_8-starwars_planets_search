@@ -1,5 +1,6 @@
 import React from 'react';
 import Context from '../Context/Context';
+import '../Styles/Table.css';
 
 function Table() {
   const { dataToRender, isLoading } = React.useContext(Context); // Captando as keys necessárias, diretamente do contexto global.
@@ -11,43 +12,45 @@ function Table() {
   return (
     isLoading
       ? (
-        <span>Carregando Informações...</span>
+        <span id="loadingSpan">Carregando Informações...</span>
       )
       : (
-        <table id="SWPlanetsTable">
-          <thead>
-            <tr>
-              { thContent.map((title, index) => (
-                <th scope="col" key={ index }>{ title }</th>
-              )) }
-            </tr>
-          </thead>
-          <tbody>
-            { dataToRender.map((planet, index) => (
-              <tr key={ index }>
-                <td>{ planet.name }</td>
-                <td>{ planet.rotation_period }</td>
-                <td>{ planet.orbital_period }</td>
-                <td>{ planet.diameter }</td>
-                <td>{ planet.climate }</td>
-                <td>{ planet.gravity }</td>
-                <td>{ planet.terrain }</td>
-                <td>{ planet.surface_water }</td>
-                <td>{ planet.population }</td>
-                <td>
-                  { planet.films.map((eachFilm, index2) => (
-                    <ul key={ index2 }>
-                      <li>{eachFilm}</li>
-                    </ul>
-                  )) }
-                </td>
-                <td>{ planet.created }</td>
-                <td>{ planet.edited }</td>
-                <td>{ planet.url }</td>
+        <div id="SWPlanetsTableContainer">
+          <table id="SWPlanetsTable">
+            <thead>
+              <tr>
+                { thContent.map((title, index) => (
+                  <th scope="col" key={ index }>{ title }</th>
+                )) }
               </tr>
-            )) }
-          </tbody>
-        </table>)
+            </thead>
+            <tbody>
+              { dataToRender.map((planet, index) => (
+                <tr key={ index }>
+                  <td>{ planet.name }</td>
+                  <td>{ planet.rotation_period }</td>
+                  <td>{ planet.orbital_period }</td>
+                  <td>{ planet.diameter }</td>
+                  <td>{ planet.climate }</td>
+                  <td>{ planet.gravity }</td>
+                  <td>{ planet.terrain }</td>
+                  <td>{ planet.surface_water }</td>
+                  <td>{ planet.population }</td>
+                  <td>
+                    { planet.films.map((eachFilm, index2) => (
+                      <ul key={ index2 } className="filmsContainer">
+                        <li>{eachFilm}</li>
+                      </ul>
+                    )) }
+                  </td>
+                  <td>{ planet.created }</td>
+                  <td>{ planet.edited }</td>
+                  <td>{ planet.url }</td>
+                </tr>
+              )) }
+            </tbody>
+          </table>
+        </div>)
   );
 }
 
