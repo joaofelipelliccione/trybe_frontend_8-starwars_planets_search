@@ -8,9 +8,12 @@
   width: 20%;
 }
 
+/* REF: https://dev.to/debadeepsen/a-table-with-a-fixed-sticky-header-54gm */
 #SWPlanetsTableContainer {
-  display: flex;
-  overflow: auto;
+  height: 650px;
+  margin-top: 1%;
+  overflow-y: auto;
+  width: 100%;
 }
 
 #SWPlanetsTableContainer::-webkit-scrollbar {
@@ -18,7 +21,7 @@
 }
 
 #SWPlanetsTableContainer::-webkit-scrollbar-track {
-  background: wheat;
+  background: ghostwhite;
 }
 
 #SWPlanetsTableContainer::-webkit-scrollbar-thumb {
@@ -30,15 +33,19 @@
 }
 
 #SWPlanetsTable {
-  margin-top: 1%;
+  border-collapse: collapse;
   width: 100%;
 }
 
-#SWPlanetsTable thead {
+#SWPlanetsTable th {
   background-color: #e4b732;
   color: black;
   font-size: 1.3em;
   font-weight: 600;
+  padding: 5px;
+  position: sticky;
+  text-align: center;
+  top: 0;
 }
 
 #SWPlanetsTable tbody {
@@ -49,6 +56,7 @@
 
 #SWPlanetsTable td {
   border: dashed 1px #d5a40c;
+  padding: 5px;
 }
 
 .filmsContainer {
