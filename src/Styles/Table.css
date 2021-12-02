@@ -10,7 +10,8 @@
 
 /* REF: https://dev.to/debadeepsen/a-table-with-a-fixed-sticky-header-54gm */
 #SWPlanetsTableContainer {
-  height: 650px;
+  border-bottom: dashed 1px #e4b732;
+  height: 750px;
   margin-top: 1%;
   overflow-y: auto;
   width: 100%;
