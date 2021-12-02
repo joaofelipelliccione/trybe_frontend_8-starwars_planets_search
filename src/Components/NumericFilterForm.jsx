@@ -1,5 +1,6 @@
 import React from 'react';
 import Context from '../Context/Context';
+import '../Styles/NumericFilterForm.css';
 
 function NumericFilterForm() {
   const { data, setDataToRender, dropdownContent1,
@@ -62,10 +63,9 @@ function NumericFilterForm() {
   };
 
   return (
-    <section>
-      <form>
+    <section id="numericFilterContainer">
+      <form id="numericFilterForm">
         <select
-          data-testid="column-filter"
           value={ column }
           onChange={ ({ target }) => setColumn(target.value) }
         >
@@ -74,7 +74,6 @@ function NumericFilterForm() {
           ))}
         </select>
         <select
-          data-testid="comparison-filter"
           value={ comparison }
           onChange={ ({ target }) => setComparison(target.value) }
         >
@@ -83,14 +82,13 @@ function NumericFilterForm() {
           ))}
         </select>
         <input
-          data-testid="value-filter"
           type="number"
           min="0"
           value={ value }
           onChange={ ({ target }) => setValue(target.value) }
         />
         <button
-          data-testid="button-filter"
+          id="filterBtn"
           type="button"
           onClick={ onFilterBtnClick }
           disabled={ column === 'Selecione' }
@@ -101,8 +99,8 @@ function NumericFilterForm() {
 
       {filters.filterByNumericValues && filters.filterByNumericValues
         .map((obj) => (
-          <div data-testid="filter" key={ obj.column }>
-            {`${obj.column} ${obj.comparison} ${obj.value}`}
+          <div key={ obj.column } id="eachChosenFilter">
+            {`${obj.column} é ${obj.comparison} ${obj.value}`}
             <button
               id={ obj.column }
               type="button"
